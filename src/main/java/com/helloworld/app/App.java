@@ -6,20 +6,10 @@ import java.io.*;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
-}
-
-
-
-public class VulnerableApp {
-    public static void main(String[] args) {
+       public static void main(String[] args) {
 
         String password = "12345678"; 
 
-        
         if (args.length > 0 && args[0].equals(password)) {
             System.out.println("Access granted.");
         } else {
@@ -41,4 +31,11 @@ public class VulnerableApp {
             e.printStackTrace();
         }
     }
+    
+    //public static void main( String[] args )
+    //{
+      //  System.out.println( "Hello World!" );
+    //}
 }
+
+
