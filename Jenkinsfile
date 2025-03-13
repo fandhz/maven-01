@@ -18,6 +18,27 @@ pipeline {
 					sh 'mvn snyk:test -fn'
 				}
 			}
-    }		
+    }
+	stage('Build') {
+	    steps {
+		    withDockerRegistry(credentialsId: "cd3bd792-4c10-49af-8a54-2b0108ae2386", url : ""]) {
+			    script {
+				    app = docker.build("testing")
+			    }
+		    }
+	    }
+	}
+	
+
+	stage('Push') {
+	    steps {
+		    script {
+			    docker.withRegistry('https://127214168318.dkr.ecr.ap-southeast-2.amazonaws.com/testing','ecr:ap-southeast-2:aws-credentials') {
+				    app.push("latest");
+			    }
+		    }
+	    }
+	}
+		
   }
 }
