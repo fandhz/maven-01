@@ -21,7 +21,7 @@ pipeline {
     }
 	stage('Build') {
 	    steps {
-		    withDockerRegistry(credentialsId: "cd3bd792-4c10-49af-8a54-2b0108ae2386", url : ""]) {
+		    withDockerRegistry([credentialsId: "cd3bd792-4c10-49af-8a54-2b0108ae2386", url : ""]) {
 			    script {
 				    app = docker.build("testing")
 			    }
