@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: buggy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buggy-maven
+  template:
+    metadata:
+      labels:
+        app: buggy-maven
+    spec: 
+      containers:
+        - name: testing
+          image: 127214168318.dkr.ecr.ap-southeast-2.amazonaws.com/testing:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+
+#load balancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: buggy-maven
+    k8s: buggy-maven
+  name: buggy-maven
+spec: 
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
+  selector: 
+    app: buggy-maven
+      
